@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+{% block title %}Blog{% endblock %}
+{% block style %}
+    <link href="{% static 'blog/style.css' %}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div class="container pt-3">
+    <div class="row">
+        <div class="col-12">
+            <h2>Blog</h2>
+            <ul>
+                <li><a href="{% url 'articles' %}">Articles</a></li>
+                <li><a href="{% url 'new_article' %}">Create an article</a></li>
+            </ul>
+        </div>
+        <div class="col-12">
+            {% block main %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

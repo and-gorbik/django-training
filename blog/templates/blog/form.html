@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+{% block title %}New Article{% endblock %}
+{% block main %}
+<h2>A new article</h2>
+<form method="POST">{% csrf_token %}
+    {{ article_form.as_p }}
+    <input type="submit" value="Publish now"/>
+{{ form }}
+{% endblock %}
