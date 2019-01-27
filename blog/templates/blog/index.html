@@ -8,4 +8,5 @@
     <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
 {% endfor %}
 </ul>
+{% include 'blog/pagination.html' with items=articles %}
 {% endblock %}
