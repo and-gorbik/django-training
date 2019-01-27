@@ -21,4 +21,5 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name="main/index.html")),
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),
+    path('audiolist/', include('audiolist.urls')),
 ]
