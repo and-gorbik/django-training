@@ -1,9 +1,18 @@
-{% extends 'blog/base.html' %}
-{% block title %}New Article{% endblock %}
-{% block main %}
-<h2>A new article</h2>
-<form method="POST">{% csrf_token %}
-    {{ article_form.as_p }}
-    <input type="submit" value="Publish now"/>
-{{ form }}
-{% endblock %}
+<form method='{{ method }}' action='{{ action }}' class="form-inline">{% csrf_token %}
+    {{ form.non_field_errors }}
+    {% if form.title.errors %}
+        <div class="text-danger">{{ form.title.errors.as_text }}</div>
+    {% endif %}
+    <fieldset class="form-group form-control">
+        <label for="{{ form.title.id_for_label }}">Title:</label>
+        {{ form.title.as_text }}
+    </fieldset>
+    {% if form.description.errors %}
+        <div class="text-danger">{{ form.description.errors.as_text }}</div>
+    {% endif %}
+    <fieldset class="form-group">
+        <label for="{{ form.description.id_for_label }}">Content:</label>
+        {{ form.description }}
+    </fieldset>
+    <input type="submit" class="btn btn-danger" value="Publish now"/>
+</form>

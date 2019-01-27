@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ article.title|capfirst }}{% endblock %}
+
+{% block main %}
+<h4>{{ article.title|capfirst }}</h4>
+<p>{{ article.description|safe }}</p>
+<a href="{% url 'update_article' article.slug %}" class="btn btn-primary">Update</a>
+<a href="{% url 'delete_article' article.slug %}" class="btn btn-primary">Delete</a>
+{% endblock %}
