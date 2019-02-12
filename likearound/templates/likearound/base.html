@@ -1,0 +1,74 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+{% block title %}Likearound{% endblock %}
+{% block style %}
+<link href="{% static 'blog/style.css' %}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div class="container pt-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'profiles' %}">Likearound</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Settings
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'profile' user.pk %}">{{ user.username }}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'signout' %}">Sign out</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Sign in
+                    </a>
+                    <div class="dropdown-menu">
+                        <form class="px-2 py-0" method="POST" action="{% url 'signin' %}">{% csrf_token %}
+                            <div class="form-group">
+                                <label for="exampleDropdownFormLogin1">Login</label>
+                                <input type="text" class="form-control" id="exampleDropdownFormLogin1" placeholder="login" name="username"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleDropdownFormPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleDropdownFormPassword1"
+                                    placeholder="password" name="password"/>
+                            </div>
+
+                            <!-- <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                                <label class="form-check-label" for="dropdownCheck">
+                                    Remember me
+                                </label>
+                            </div> -->
+                            <input type="submit" class="btn btn-dark form-control" value="Sign in" name="login"/>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-center" href="#">Sign up</a>
+                        <!-- <a class="dropdown-item" href="#">Forgot password?</a> -->
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div class="container">
+        {% block main %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

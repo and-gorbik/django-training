@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.shortcuts import reverse
 
 from . import managers
 
@@ -7,7 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     avatar = models.ImageField(
         upload_to='likearound/profiles/',
-        default='likearound/profiles/default.jpg',
+        default='default.jpg',
         blank=True,
     )
     likes = models.PositiveSmallIntegerField(default=0)
@@ -16,6 +17,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+    def url(self):
+        return reverse('profile', kwargs={'pk': self.pk})
 
     def liked(self, liker):
         """ True - если лайк, False - если дизлайк, None - если нет оценки """

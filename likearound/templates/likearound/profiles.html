@@ -1,0 +1,27 @@
+{% extends 'likearound/base.html' %}
+{% load staticfiles %}
+{% block title %}Profiles{% endblock %}
+{% block main %}
+
+<div class="card mt-3">
+    <div class="card-body">
+        <h4 class="card-title mb-4">
+            Profiles
+        </h4>
+        <!-- <div class="card-deck"> -->
+            {% for profile in profiles %}
+            <div class="card">
+                <img class="card-img-top" src="{% if profile.avatar %}{{ profile.avatar.url }}{% endif %}" alt="">
+                <div class="card-body">
+                    <h5 class="card-title text-center">
+                        <a href="{{ profile.url }}">{{ profile.user.username }}</a>
+                    </h5>
+                    <!-- <p class="card-text"><small class="text-muted">Last online 3 mins ago</small></p> -->
+                </div>
+            </div>
+            {% endfor %}
+        <!-- </div> -->
+    </div>
+</div>
+
+{% endblock %}
