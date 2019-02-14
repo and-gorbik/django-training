@@ -9,4 +9,6 @@ urlpatterns = [
 
     path('signin/', views.signin, name='signin'),
     path('signout/', views.signout, name='signout'),
+
+    path('like/', views.like, name='like'),
 ]

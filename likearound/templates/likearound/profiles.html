@@ -17,11 +17,50 @@
                         <a href="{{ profile.url }}">{{ profile.user.username }}</a>
                     </h5>
                     <!-- <p class="card-text"><small class="text-muted">Last online 3 mins ago</small></p> -->
+                    <button id="like_{{ profile.pk }}" onclick="like('{{ profile.pk }}', true)">
+                        Like ({{ profile.likes }})
+                    </button>
+                    <button id="dislike_{{ profile.pk }}" onclick="like('{{ profile.pk }}', false)">
+                        Dislike ({{ profile.dislikes }})
+                    </button>
                 </div>
             </div>
             {% endfor %}
         <!-- </div> -->
     </div>
 </div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script> -->
+<script>
+    // var csrftoken = Cookies.get('csrftoken');
+    function like(profile, sign) {
+        axios.post('/likearound/like/', {
+            params: {
+                id: profile,
+                sign: sign
+            }
+        })
+        .then(function (response) {
+            let like = document.getElementById("like_" + profile);
+            let dislike = document.getElementById("dislike_" + profile);
+            like.innerHTML = "Like (" + response.data.likes + ")";
+            dislike.innerHTML = "Dislike (" + response.data.dislikes + ")";
+            if (response.data.liked === true) {
+                like.style.color = 'red';
+                dislike.style.color = 'black';
+            } else if (response.data.liked === false) {
+                like.style.color = 'black';
+                dislike.style.color = 'red'; 
+            } else {
+                like.style.color = 'black';
+                dislike.style.color = 'black';
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+</script>
 
 {% endblock %}
